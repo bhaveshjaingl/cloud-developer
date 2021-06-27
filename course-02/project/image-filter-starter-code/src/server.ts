@@ -29,11 +29,31 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
+
   //! END @TODO1
+
+  // app.get("/filteredimage/:name", (req, res) => {
+  //   let {name} = req.params;
+  //   res.status(200).send("Welcome " + name);
+  // });
+
+
+  app.get('/filteredimage/', async (req, res) => {
+    // this works
+    // const imageURL = req.query.image_url;
+
+    let {image_url} = req.query;
+    if(image_url &&  image_url != '') {
+      res.send(filterImageFromURL(image_url.toString()));
+    } else {
+      res.status(400).send("Bad Request: no image URL passed.");
+    }
+    
+});
   
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req , res ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
